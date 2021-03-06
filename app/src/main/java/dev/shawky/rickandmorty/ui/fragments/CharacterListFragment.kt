@@ -44,6 +44,7 @@ class CharacterListFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        search()
     }
 
     override fun onCreateView(
@@ -53,7 +54,6 @@ class CharacterListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_character_list, container, false)
         initRecyclerView(binding.recyclerViewCharacterList)
-        search()
         return binding.root
     }
 
