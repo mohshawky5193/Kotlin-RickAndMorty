@@ -57,7 +57,6 @@ class CharacterDetailFragment : Fragment() {
         characterDetailViewModel.getCharacterById(characterId).observe(viewLifecycleOwner, androidx.lifecycle.Observer { character->
             character.setStatusColor()
             character.setGenderColor()
-            Log.d("Shawky",character.toString())
             binding.character=character
         })
     }

@@ -43,7 +43,6 @@ class CharactersRemoteMediator(
             if (page != null && page > 0) {
                 val apiResponse = charactersService.getCharactersPaginated(page)
                 val characters = apiResponse.results
-                Log.d("Shawky","Characters Size:${characters.size}")
                 val endOfPaginationReached = characters.isEmpty()
                 characters.forEach {
                     it.page = page
