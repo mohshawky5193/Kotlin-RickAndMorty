@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Kotlin-RickAndMorty</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_character_list_fragment">Hello character list fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_character_detail_fragment">Hello character detail fragment</string>
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+</resources>

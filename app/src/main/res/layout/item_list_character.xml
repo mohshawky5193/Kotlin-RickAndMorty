@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="character"
+            type="dev.shawky.rickandmorty.model.Character" />
+        <variable
+            name="characterOnClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{character != null? characterOnClickListener:null}">
+
+        <ProgressBar
+            android:id="@+id/viewImageShadow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/viewCharacterNameShadow"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewImageShadow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupShadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{character == null ? View.VISIBLE:View.GONE}"
+            app:constraint_referenced_ids="viewImageShadow,viewCharacterNameShadow"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imageViewCharacterImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{character.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/textViewCharacterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{character.name}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCharacterImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rick Morphy" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupCharacterData"
+            android:visibility="@{character !=null ? View.VISIBLE:View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="imageViewCharacterImage,textViewCharacterName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
