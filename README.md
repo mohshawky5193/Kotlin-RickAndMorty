@@ -13,4 +13,6 @@ Rick And Morty Android Application using Kotlin and Jetpack
 
 ### TODO
 - [ ] Android Testing using Espresso and JUnit
-- [ ] Smooth Transition between Character List and Detail
+
+### DONE
+- [x] Shared Element Transition between Character List and Detail

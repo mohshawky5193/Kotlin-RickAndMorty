@@ -1,11 +1,13 @@
 package dev.shawky.rickandmorty.ui.fragments
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import dev.shawky.rickandmorty.R
@@ -13,6 +15,7 @@ import dev.shawky.rickandmorty.databinding.FragmentCharacterDetailBinding
 import dev.shawky.rickandmorty.viewmodels.CharacterDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Observer
+import java.util.concurrent.TimeUnit
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,6 +41,8 @@ class CharacterDetailFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        postponeEnterTransition(250,TimeUnit.MILLISECONDS)
     }
 
     override fun onCreateView(
@@ -47,18 +52,31 @@ class CharacterDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_character_detail, container, false)
         binding.character= null
-        getCharacter()
+        val characterId = getCharacterId()
+        getCharacter(characterId)
         return binding.root;
     }
 
-    private fun getCharacter() {
-        val args:CharacterDetailFragmentArgs by navArgs()
-        val characterId = args.characterId
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val characterId = getCharacterId()
+        ViewCompat.setTransitionName(binding.imageViewAvatar,"character_image$characterId")
+        ViewCompat.setTransitionName(binding.textViewCharacterName,"character_name$characterId")
+    }
+
+    private fun getCharacter(characterId:Int) {
+
         characterDetailViewModel.getCharacterById(characterId).observe(viewLifecycleOwner, androidx.lifecycle.Observer { character->
             character.setStatusColor()
             character.setGenderColor()
             binding.character=character
         })
+    }
+
+    private fun getCharacterId(): Int {
+        val args: CharacterDetailFragmentArgs by navArgs()
+        val characterId = args.characterId
+        return characterId
     }
 
     companion object {

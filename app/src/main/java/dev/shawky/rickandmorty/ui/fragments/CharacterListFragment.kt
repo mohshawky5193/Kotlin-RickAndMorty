@@ -70,6 +70,11 @@ class CharacterListFragment : Fragment() {
         recyclerViewCharacterList?.apply {
             layoutManager=LinearLayoutManager(context)
             adapter = charactersAdapter
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
         recyclerViewCharacterList.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager(context).orientation))
 
